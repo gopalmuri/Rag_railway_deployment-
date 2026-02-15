@@ -5,9 +5,9 @@ import json
 import csv
 import time
 import datetime
-import nltk
-nltk.download('punkt')
-from nltk.tokenize import word_tokenize
+import spacy
+from spacy.lang.en import English
+nlp = spacy.load("en_core_web_sm", disable=["ner", "parser"])
 from sentence_transformers import SentenceTransformer
 import chromadb
 from sklearn.metrics.pairwise import cosine_similarity

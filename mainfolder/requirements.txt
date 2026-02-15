@@ -1,6 +1,5 @@
 requests
 PyMuPDF
-nltk
 sentence-transformers
 chromadb
 scikit-learn

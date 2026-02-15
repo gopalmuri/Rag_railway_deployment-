@@ -6,8 +6,7 @@ cmds = [
   "pip install --upgrade pip",
   "pip install --no-cache-dir torch torchvision --index-url https://download.pytorch.org/whl/cpu",
   "pip install --no-cache-dir -r requirements.txt",
-  "python -m spacy download en_core_web_sm",
-  "python -m nltk.downloader punkt"
+  "python -m spacy download en_core_web_sm"
 ]
 
 [phases.build]
