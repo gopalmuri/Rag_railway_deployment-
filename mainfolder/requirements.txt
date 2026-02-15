@@ -1,9 +1,5 @@
 requests
 PyMuPDF
-sentence-transformers
-chromadb
-scikit-learn
-numpy
 Django
 spacy
 mysqlclient

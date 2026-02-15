@@ -4,7 +4,6 @@ nixPkgs = ["python310", "gcc", "g++", "mysql-client"]
 [phases.install]
 cmds = [
   "pip install --upgrade pip",
-  "pip install --no-cache-dir torch torchvision --index-url https://download.pytorch.org/whl/cpu",
   "pip install --no-cache-dir -r requirements.txt",
   "python -m spacy download en_core_web_sm"
 ]
@@ -15,4 +14,4 @@ cmds = [
 ]
 
 [start]
-cmd = "cd mainfolder/backend && gunicorn rag_project.wsgi:application --bind 0.0.0.0:$PORT --workers 1 --timeout 120 --log-file -"
+cmd = "cd mainfolder/backend && gunicorn rag_project.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 120 --log-file -"
