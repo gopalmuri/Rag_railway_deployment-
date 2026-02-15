@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import dj_database_url
 
 # Load environment variables from .env file
 load_dotenv()
@@ -95,18 +96,24 @@ WSGI_APPLICATION = 'rag_project.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('MYSQLDATABASE') or os.getenv('DB_NAME', 'rag_database'),
-        'USER': os.getenv('MYSQLUSER') or os.getenv('DB_USER', 'root'),
-        'PASSWORD': os.getenv('MYSQLPASSWORD') or os.getenv('DB_PASSWORD', 'Gopalmuri@8904'),
-        'HOST': os.getenv('MYSQLHOST') or os.getenv('DB_HOST', 'localhost'),
-        'PORT': os.getenv('MYSQLPORT') or os.getenv('DB_PORT', '3306'),
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
-    }
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL') or f"mysql://{os.getenv('MYSQLUSER', 'root')}:{os.getenv('MYSQLPASSWORD', 'Gopalmuri@8904')}@{os.getenv('MYSQLHOST', 'localhost')}:{os.getenv('MYSQLPORT', '3306')}/{os.getenv('MYSQLDATABASE', 'rag_database')}",
+        conn_max_age=600,
+        ssl_require=False
+    )
 }
+
+# Final Fallback to SQLite if MySQL hostname is invalid or not provided on Railway
+if os.getenv('RAILWAY_ENVIRONMENT') and (not os.getenv('MYSQLHOST') and not os.getenv('DATABASE_URL')):
+    print("[DATABASE] No Railway MySQL found, falling back to SQLite for stability")
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+# Fix for cases where MYSQLHOST is explicitly 'localhost' on Linux Railway
+elif os.getenv('MYSQLHOST') == 'localhost' and os.name != 'nt':
+     DATABASES['default']['HOST'] = '127.0.0.1' # Avoid socket issue on Linux
+
 
 
 # Password validation
