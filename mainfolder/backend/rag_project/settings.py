@@ -96,12 +96,12 @@ WSGI_APPLICATION = 'rag_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.mysql'),
-        'NAME': os.getenv('DB_NAME', 'rag_database'),
-        'USER': os.getenv('DB_USER', 'root'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'Gopalmuri@8904'),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
-        'PORT': os.getenv('DB_PORT', '3306'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv('MYSQLDATABASE') or os.getenv('DB_NAME', 'rag_database'),
+        'USER': os.getenv('MYSQLUSER') or os.getenv('DB_USER', 'root'),
+        'PASSWORD': os.getenv('MYSQLPASSWORD') or os.getenv('DB_PASSWORD', 'Gopalmuri@8904'),
+        'HOST': os.getenv('MYSQLHOST') or os.getenv('DB_HOST', 'localhost'),
+        'PORT': os.getenv('MYSQLPORT') or os.getenv('DB_PORT', '3306'),
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
