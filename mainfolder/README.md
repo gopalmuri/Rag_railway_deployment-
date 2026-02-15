@@ -12,7 +12,6 @@ An advanced AI-powered document assistant that leverages Retrieval-Augmented Gen
     *   Uses `sentence-transformers` (all-MiniLM-L6-v2) for high-quality embeddings.
 *   **Powerful AI Integration:**
     *   Integrated with **Groq (Llama 3)** and **Google Gemini** for lightning-fast, high-quality responses.
-    *   Supports local inference via **Ollama**.
     *   Generates relevant follow-up questions to deepen the conversation.
     *   Provides citations and source tracking for complete transparency.
 *   **Modern User Interface:**
@@ -20,7 +19,7 @@ An advanced AI-powered document assistant that leverages Retrieval-Augmented Gen
     *   Real-time processing status updates.
     *   Chat interface with thinking indicators, copy functionality, and chat export options.
 *   **Robust Backend:**
-    *   Built on **Django Frameork**.
+    *   Built on **Django Framework**.
     *   **MySQL** database integration for reliable data management.
     *   Comprehensive logging of ingestion times and system performance.
 
@@ -29,7 +28,7 @@ An advanced AI-powered document assistant that leverages Retrieval-Augmented Gen
 *   **Backend Framework:** Django
 *   **Database:** MySQL (Metadata), ChromaDB (Vector Store)
 *   **AI/ML:**
-    *   **LLMs:** Groq API (Llama 3), Google Gemini API, Ollama (Local)
+    *   **LLMs:** Groq API (Llama 3), Google Gemini API
     *   **Embeddings:** Sentence Transformers
     *   **NLP:** spaCy, NLTK
 *   **Frontend:** HTML5, CSS3, JavaScript (Django Templates)
@@ -47,7 +46,7 @@ An advanced AI-powered document assistant that leverages Retrieval-Augmented Gen
 
 1.  **Clone the Repository**
     ```bash
-    git clone https://github.com/YourUsername/fullstack-rag-document-assistant.git
+    git clone https://github.com/gopalmuri/fullstack-rag-document-assistant.git
     cd fullstack-rag-document-assistant
     ```
 
