@@ -157,7 +157,8 @@ STATICFILES_DIRS = [
 ]
 
 # Static files for production (Railway)
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# Forced Reload Trigger: v1.0.1
 # Use simplified storage to prevent startup crashes if manifest is missing
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
