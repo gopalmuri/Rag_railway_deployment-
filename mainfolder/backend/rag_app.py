@@ -719,50 +719,6 @@ if __name__ == "__main__":
     test_groq_connection()
 
 
-    """Query the LLM with the given prompt using Groq API"""
-    try:
-        from groq import Groq
-        api_key = os.getenv("GROQ_API_KEY")
-        if not api_key:
-            return "I'm sorry, I encountered an error: GROQ_API_KEY not found. Please set it in your environment."
-        client = Groq(api_key=api_key)
-        
-        print(f"[AI] Sending request to Groq API...")
-        llm_request_start = time.perf_counter()
-        
-        # Using Groq's chat completion API
-        response = client.chat.completions.create(
-            messages=[
-                {"role": "system", "content": "You are an expert AI assistant that provides detailed, specific, and comprehensive answers based on the given context."},
-                {"role": "user", "content": prompt}
-            ],
-            model="llama-3.1-8b-instant",
-            temperature=1,
-            max_completion_tokens=2000,
-            top_p=1
-        )
-        
-        llm_request_time = time.perf_counter() - llm_request_start
-        print(f"[TIME] LLM request completed in: {llm_request_time:.2f}s")
-
-        answer = response.choices[0].message.content.strip()
-        print(f"[TEXT] LLM response length: {len(answer)} characters")
-
-        # Deduplicate repeated sentences
-        sentences = re.split(r'(?<=[.!?]) +', answer)
-        seen = set()
-        filtered_sentences = []
-        for sentence in sentences:
-            if sentence not in seen:
-                filtered_sentences.append(sentence)
-                seen.add(sentence)
-        answer = ' '.join(filtered_sentences).strip()
-        return answer
-    except Exception as e:
-        print(f"Error querying Groq API: {e}")
-        return "I'm sorry, I encountered an error processing your request. Please try again later."
-
-
 
 def _chunks_to_citations(filtered_chunks, query=""):
     # Sort chunks by combined relevance score (highest first)
