@@ -157,8 +157,9 @@ STATICFILES_DIRS = [
 ]
 
 # Static files for production (Railway)
-STATIC_ROOT = os.path.join(BASE_DIR.parent, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+# Use simplified storage to prevent startup crashes if manifest is missing
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # CSRF and Security Settings for Railway
 CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'https://*.railway.app').split(',')
