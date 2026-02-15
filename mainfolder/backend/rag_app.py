@@ -13,7 +13,6 @@ import chromadb
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 import textwrap
-import pdfplumber
 from sklearn.feature_extraction.text import TfidfVectorizer
 from collections import defaultdict
 from typing import List, Dict, Any
@@ -100,14 +99,16 @@ def chunk_text(text, chunk_size=800, overlap=50):
     return chunks
 
 def analyze_pdf(file_path):
+    """Analyze PDF using fitz (PyMuPDF) instead of pdfplumber to save space"""
     try:
-        with pdfplumber.open(file_path) as pdf:
-            num_pages = len(pdf.pages)
-            total_words = 0
-            for page in pdf.pages:
-                text = page.extract_text() or ""
-                total_words += len(text.split())
-            return num_pages, total_words
+        doc = fitz.open(file_path)
+        num_pages = len(doc)
+        total_words = 0
+        for page in doc:
+            text = page.get_text()
+            total_words += len(text.split())
+        doc.close()
+        return num_pages, total_words
     except Exception as e:
         print(f"Error processing {file_path}: {e}")
         return 0, 0

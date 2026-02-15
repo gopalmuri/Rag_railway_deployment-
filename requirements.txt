@@ -1,11 +1,9 @@
 requests
 PyMuPDF
 nltk
-sentence-transformers
 chromadb
 scikit-learn
 numpy
-pdfplumber
 Django
 spacy
 mysqlclient
